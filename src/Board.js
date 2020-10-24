@@ -89,6 +89,7 @@ class Board {
     this.grid = [];
     this.snek = new Snek();
     this.snekDir = "right";
+    this.dirMap = { 37: "left", 38: "up", 39: "right", 40: "down" };
     // Get a fresh board
     for (let y = 0; y < boardDim; y++) {
       let newrow = [];
@@ -102,34 +103,49 @@ class Board {
     }
     // Initial snek position set manually on the grid
     this.grid[this.snek.positions[0].y][this.snek.positions[0].x].snek = true;
-
-    // Some random food
-    this.grid[1][3].food = true;
-    this.grid[4][3].food = true;
-    this.grid[5][1].food = true;
-    this.grid[4][6].food = true;
+    // Some food to start off
     this.grid[7][8].food = true;
 
-    this.ticker = setInterval(() => {
+    this.gameLoop = setInterval(() => {
       const moved = this.snek.moveSnek(this.snekDir, this.grid);
       if (!moved || moved.collision === "snek") {
         // out bounds or moved into self, stop ticker
-        this.clearTicker();
+        this.endGame(moved.collision);
       }
       if (moved.collision === "food") {
         // alert("moved into food");
+        // Add a nother random food onto the grid
+        // Make sure the food doesn't fall on an existing snek block
+        // Pick a random index, pick the first free block iterating through
+        // all the grid. If no free block, end game
+        let rXIdx = Math.floor(Math.random() * boardDim);
+        let rYIdx = Math.floor(Math.random() * boardDim);
+        for (let y = rYIdx; y !== rYIdx - 1; y++) {
+          for (let x = rXIdx; x !== rXIdx - 1; x++) {
+            if (!this.grid[y][x].snek) {
+              this.grid[y][x].food = true;
+              return;
+            }
+          }
+        }
+
+        // If didn't return yet
+        this.endGame("Full grid");
       }
     }, TICK);
   }
 
-  clearTicker() {
-    clearInterval(this.ticker);
+  endGame(why) {
+    console.trace();
+    alert(`Game Over: ${why}`);
+    clearInterval(this.gameLoop);
   }
 
   handleKey(e) {
-    const dirMap = { 37: "left", 38: "up", 39: "right", 40: "down" };
-    console.log(`Clicked: ${e.keyCode} - ${dirMap[e.keyCode]}`);
-    this.snekDir = dirMap[e.keyCode];
+    if (e.keyCode in this.dirMap) {
+      console.log(`Clicked: ${e.keyCode} - ${this.dirMap[e.keyCode]}`);
+      this.snekDir = this.dirMap[e.keyCode];
+    }
   }
 }
 

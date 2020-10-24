@@ -3,7 +3,7 @@ import React from "react";
 import Board from "./Board";
 import "./App.css";
 
-const TICK = 100;
+const TICK = 300;
 /*
   left arrow	37
   up arrow	38

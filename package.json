@@ -1,5 +1,5 @@
 {
-  "name": "snek",
+  "name": "react-snek",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
