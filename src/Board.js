@@ -1,4 +1,4 @@
-var boardDim = 15;
+var boardDim = 30;
 
 class Snek {
   constructor() {
@@ -46,7 +46,11 @@ class Snek {
 
     // Check out of bounds
     let validMove = this.checkValidPos(newPos);
-    if (!validMove) return false;
+    if (!validMove)
+      return {
+        collison: "bounds",
+        grid: grid,
+      };
 
     // Check collisions
     let collisionInfo = "none";
@@ -85,7 +89,7 @@ class Snek {
 }
 
 class Board {
-  constructor(TICK) {
+  constructor() {
     this.grid = [];
     this.snek = new Snek();
     this.snekDir = "right";
@@ -105,34 +109,40 @@ class Board {
     this.grid[this.snek.positions[0].y][this.snek.positions[0].x].snek = true;
     // Some food to start off
     this.grid[7][8].food = true;
+  }
 
-    this.gameLoop = setInterval(() => {
-      const moved = this.snek.moveSnek(this.snekDir, this.grid);
-      if (!moved || moved.collision === "snek") {
-        // out bounds or moved into self, stop ticker
-        this.endGame(moved.collision);
-      }
-      if (moved.collision === "food") {
-        // alert("moved into food");
-        // Add a nother random food onto the grid
-        // Make sure the food doesn't fall on an existing snek block
-        // Pick a random index, pick the first free block iterating through
-        // all the grid. If no free block, end game
-        let rXIdx = Math.floor(Math.random() * boardDim);
-        let rYIdx = Math.floor(Math.random() * boardDim);
-        for (let y = rYIdx; y !== rYIdx - 1; y++) {
-          for (let x = rXIdx; x !== rXIdx - 1; x++) {
-            if (!this.grid[y][x].snek) {
-              this.grid[y][x].food = true;
-              return;
-            }
+  gameLoop(TICK) {
+    const moved = this.snek.moveSnek(this.snekDir, this.grid);
+    if (moved.collision === "bounds") {
+      this.endGame(moved.collision);
+      return false;
+    }
+    if (moved.collision === "snek") {
+      // out bounds or moved into self, stop ticker
+      this.endGame(moved.collision);
+      return false;
+    }
+    if (moved.collision === "food") {
+      // Add a nother random food onto the grid
+      // Make sure the food doesn't fall on an existing snek block
+      // Pick a random index, pick the first free block iterating through
+      // all the grid. If no free block, end game
+      let rXIdx = Math.floor(Math.random() * boardDim);
+      let rYIdx = Math.floor(Math.random() * boardDim);
+      for (let y = rYIdx; y !== rYIdx - 1; y++) {
+        for (let x = rXIdx; x !== rXIdx - 1; x++) {
+          if (!this.grid[y][x].snek) {
+            this.grid[y][x].food = true;
+            return TICK * 0.7;
           }
         }
-
-        // If didn't return yet
-        this.endGame("Full grid");
       }
-    }, TICK);
+
+      // If didn't return yet
+      this.endGame("Full grid");
+      return false;
+    }
+    return TICK;
   }
 
   endGame(why) {

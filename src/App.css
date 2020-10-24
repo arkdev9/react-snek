@@ -25,8 +25,8 @@ html {
 }
 
 .square {
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   background-color: black;
   border: 0.1em white solid;
 }
