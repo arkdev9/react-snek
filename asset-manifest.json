@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/react-snek/static/css/main.0be03044.chunk.css",
+    "main.js": "/react-snek/static/js/main.b52b6637.chunk.js",
+    "main.js.map": "/react-snek/static/js/main.b52b6637.chunk.js.map",
+    "runtime-main.js": "/react-snek/static/js/runtime-main.efbb0e20.js",
+    "runtime-main.js.map": "/react-snek/static/js/runtime-main.efbb0e20.js.map",
+    "static/js/2.af8413be.chunk.js": "/react-snek/static/js/2.af8413be.chunk.js",
+    "static/js/2.af8413be.chunk.js.map": "/react-snek/static/js/2.af8413be.chunk.js.map",
+    "index.html": "/react-snek/index.html",
+    "precache-manifest.0b40b2442ea6553c98b0f1032d25d412.js": "/react-snek/precache-manifest.0b40b2442ea6553c98b0f1032d25d412.js",
+    "service-worker.js": "/react-snek/service-worker.js",
+    "static/css/main.0be03044.chunk.css.map": "/react-snek/static/css/main.0be03044.chunk.css.map",
+    "static/js/2.af8413be.chunk.js.LICENSE.txt": "/react-snek/static/js/2.af8413be.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.efbb0e20.js",
+    "static/js/2.af8413be.chunk.js",
+    "static/css/main.0be03044.chunk.css",
+    "static/js/main.b52b6637.chunk.js"
+  ]
+}
