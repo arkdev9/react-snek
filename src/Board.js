@@ -67,7 +67,7 @@ export default class Board {
   handleKey(e) {
     if (e.keyCode in this.dirMap) {
       console.log(`Clicked: ${e.keyCode} - ${this.dirMap[e.keyCode]}`);
-      // Don't allow opposites
+      // TODO: Don't allow opposites
       this.snekDir = this.dirMap[e.keyCode];
     }
   }
