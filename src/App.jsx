@@ -3,13 +3,6 @@ import React from "react";
 import Board from "./Board";
 import "./App.css";
 
-/*
-  left arrow	37
-  up arrow	38
-  right arrow	39
-  down arrow	40
-*/
-
 class App extends React.Component {
   constructor(props) {
     super(props);
